@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon.png">
+    <title>Smarte Vorratsliste</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="theme-switch">
+            <button id="themeToggle" title="Theme wechseln">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        <h1>📝 Meine Vorratsliste</h1>
+        
+        <!-- Neuer Dialog für Masseneingabe -->
+        <div id="bulkInputDialog" class="dialog">
+            <div class="dialog-content">
+                <h2>Liste einfügen</h2>
+                <textarea id="bulkInput" placeholder="Ein Artikel pro Zeile eingeben..."></textarea>
+                <div class="dialog-buttons">
+                    <button id="addToNeeded">Zu "Wird benötigt" hinzufügen</button>
+                    <button id="addToAvailable">Zu "Vorrätig" hinzufügen</button>
+                    <button id="cancelBulkInput" class="cancel-btn">Abbrechen</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="lists-container">
+            <div class="list">
+                <div class="list-header">
+                    <h2>✅ Vorrätig</h2>
+                    <div class="header-actions">
+                        <button class="add-header-btn" onclick="showAddHeaderDialog('available')" title="Neue Überschrift">
+                            <i class="fas fa-folder-plus"></i>
+                        </button>
+                        <button class="clear-list-btn" onclick="clearList('available')" title="Liste leeren">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="list-input">
+                    <input type="text" placeholder="Artikel als vorrätig hinzufügen..." onkeypress="if(event.key === 'Enter') addItemToList('available', this)">
+                    <button onclick="addItemToList('available', this.previousElementSibling)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <ul id="availableItems"></ul>
+            </div>
+
+            <div class="list">
+                <div class="list-header">
+                    <h2>🛒 Wird benötigt</h2>
+                    <div class="header-actions">
+                        <button id="showBulkInputBtn" onclick="showBulkInputDialog()" title="Liste einfügen">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        <button class="clear-list-btn" onclick="clearList('needed')" title="Liste leeren">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="list-input">
+                    <input type="text" placeholder="Artikel als benötigt hinzufügen..." onkeypress="if(event.key === 'Enter') addItemToList('needed', this)">
+                    <button onclick="addItemToList('needed', this.previousElementSibling)">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <ul id="neededItems"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Neuer Dialog für Überschrift hinzufügen -->
+    <div id="addHeaderDialog" class="dialog">
+        <div class="dialog-content">
+            <h2>Neue Überschrift hinzufügen</h2>
+            <input type="text" id="headerInput" placeholder="Überschrift in GROSSBUCHSTABEN eingeben">
+            <div class="dialog-buttons">
+                <button id="addHeaderBtn">Hinzufügen</button>
+                <button id="cancelHeaderBtn" class="cancel-btn">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
